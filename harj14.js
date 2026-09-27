@@ -13,6 +13,11 @@ const teenuseKlassid = {
 };
 let broneeringuRead = [];
 
+function vormindaKuupaev(kuupaev) {
+	const [aasta, kuu, paev] = kuupaev.split("-");
+	return `${paev}/${kuu}/${aasta}`;
+}
+
 function kuvaFiltreeritudBroneeringud() {
 	const valitudTeenus = teenuseFilter.value;
 	const valitudKuupaev = kuupaevaFilter.value;
@@ -49,7 +54,7 @@ async function laadiBroneeringud() {
 			rida.dataset.kuupaev = broneering.kuupäev;
 			rida.dataset.klient = broneering.klient.toLocaleLowerCase("et");
 
-			[broneering.klient, broneering.teenus, broneering.kuupäev, broneering.aeg]
+			[broneering.klient, broneering.teenus, vormindaKuupaev(broneering.kuupäev), broneering.aeg]
 				.forEach((vaartus) => {
 					const lahter = document.createElement("td");
 					lahter.textContent = vaartus;
