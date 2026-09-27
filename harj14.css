@@ -30,6 +30,34 @@ h1 {
     font-weight: 500;
 }
 
+.table-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.table-controls label {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.table-controls select {
+    min-height: 2.5rem;
+    padding: 0.4rem 2rem 0.4rem 0.65rem;
+    border: 1px solid #aabbb1;
+    border-radius: 4px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+}
+
+#tulemuste-arv {
+    margin: 0 0 0 auto;
+    color: #52625a;
+    font-size: 0.9rem;
+}
+
 .table-wrap {
     overflow-x: auto;
     border: 1px solid #d3ded8;
@@ -95,6 +123,15 @@ tbody tr:hover {
 
     h1 {
         font-size: 1.8rem;
+    }
+
+    .table-controls {
+        flex-wrap: wrap;
+    }
+
+    #tulemuste-arv {
+        width: 100%;
+        margin-left: 0;
     }
 
     th,

@@ -1,12 +1,27 @@
 const andmeteUrl = "https://metshein.com/kordamine/json/broneeringud.json";
 const tabel = document.querySelector("#broneeringud");
 const tabeliKeha = tabel.querySelector("tbody");
+const teenuseFilter = document.querySelector("#teenuse-filter");
+const tulemusteArv = document.querySelector("#tulemuste-arv");
 const teenuseKlassid = {
 	Juuksur: "juuksur",
 	"Massaaž": "massaaz",
 	Spa: "spa",
 	Kosmeetika: "kosmeetika"
 };
+let broneeringuRead = [];
+
+function kuvaFiltreeritudBroneeringud() {
+	const valitudTeenus = teenuseFilter.value;
+	const filtreeritudRead = broneeringuRead.filter((rida) =>
+		valitudTeenus === "" || rida.dataset.teenus === valitudTeenus
+	);
+
+	tabeliKeha.replaceChildren(...filtreeritudRead);
+	tulemusteArv.textContent = `${filtreeritudRead.length} broneeringut`;
+}
+
+teenuseFilter.addEventListener("change", kuvaFiltreeritudBroneeringud);
 
 async function laadiBroneeringud() {
 	try {
@@ -18,9 +33,10 @@ async function laadiBroneeringud() {
 		const andmed = await vastus.json();
 		console.log(andmed);
 
-		const read = andmed.broneeringud.map((broneering) => {
+		broneeringuRead = andmed.broneeringud.map((broneering) => {
 			const rida = document.createElement("tr");
 			rida.classList.add(teenuseKlassid[broneering.teenus] ?? "muu-teenus");
+			rida.dataset.teenus = broneering.teenus;
 
 			[broneering.klient, broneering.teenus, broneering.kuupäev, broneering.aeg]
 				.forEach((vaartus) => {
@@ -32,7 +48,7 @@ async function laadiBroneeringud() {
 			return rida;
 		});
 
-		tabeliKeha.replaceChildren(...read);
+		kuvaFiltreeritudBroneeringud();
 	} catch (viga) {
 		console.error("Broneeringute laadimine ebaõnnestus:", viga);
 	}
