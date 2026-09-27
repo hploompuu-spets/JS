@@ -30,8 +30,8 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir -p _site
-          cp harj14.html _site/index.html
-          cp harj14.css harj14.js _site/
+          cp kodune1.html _site/index.html
+          cp kodune1.css kodune1.js _site/
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
