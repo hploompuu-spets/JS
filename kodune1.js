@@ -12,6 +12,7 @@ const teenuseKlassid = {
 	Kosmeetika: "kosmeetika"
 };
 let broneeringuRead = [];
+let sortimiseSeis = { veerg: null, kasvav: true };
 
 function vormindaKuupaev(kuupaev) {
 	const [aasta, kuu, paev] = kuupaev.split("-");
@@ -31,6 +32,50 @@ function kuvaFiltreeritudBroneeringud() {
 	tabeliKeha.replaceChildren(...filtreeritudRead);
 	tulemusteArv.textContent = `${filtreeritudRead.length} broneeringut`;
 }
+
+function sorteeriBroneeringud(veerg) {
+	if (sortimiseSeis.veerg === veerg) {
+		sortimiseSeis.kasvav = !sortimiseSeis.kasvav;
+	} else {
+		sortimiseSeis = { veerg, kasvav: true };
+	}
+
+	broneeringuRead.sort((esimene, teine) => {
+		let tulemus;
+		if (veerg === "aeg") {
+			const esimeseAeg = esimene.dataset.aeg.split(":").map(Number);
+			const teiseAeg = teine.dataset.aeg.split(":").map(Number);
+			tulemus = (esimeseAeg[0] * 60 + esimeseAeg[1]) - (teiseAeg[0] * 60 + teiseAeg[1]);
+		} else {
+			tulemus = esimene.dataset[veerg].localeCompare(teine.dataset[veerg], "et", {
+				numeric: true,
+				sensitivity: "base"
+			});
+		}
+
+		return sortimiseSeis.kasvav ? tulemus : -tulemus;
+	});
+
+	tabel.querySelectorAll(".sort-button").forEach((nupp) => {
+		const onValitud = nupp.dataset.sort === veerg;
+		nupp.closest("th").setAttribute(
+			"aria-sort",
+			onValitud ? (sortimiseSeis.kasvav ? "ascending" : "descending") : "none"
+		);
+		nupp.querySelector(".sort-indicator").textContent = onValitud
+			? (sortimiseSeis.kasvav ? "↑" : "↓")
+			: "↕";
+	});
+
+	kuvaFiltreeritudBroneeringud();
+}
+
+tabel.querySelector("thead").addEventListener("click", (sundmus) => {
+	const nupp = sundmus.target.closest(".sort-button");
+	if (nupp) {
+		sorteeriBroneeringud(nupp.dataset.sort);
+	}
+});
 
 [teenuseFilter, kuupaevaFilter].forEach((filter) => {
 	filter.addEventListener("change", kuvaFiltreeritudBroneeringud);
@@ -53,6 +98,7 @@ async function laadiBroneeringud() {
 			rida.dataset.teenus = broneering.teenus;
 			rida.dataset.kuupaev = broneering.kuupäev;
 			rida.dataset.klient = broneering.klient.toLocaleLowerCase("et");
+			rida.dataset.aeg = broneering.aeg;
 
 			[broneering.klient, broneering.teenus, vormindaKuupaev(broneering.kuupäev), broneering.aeg]
 				.forEach((vaartus) => {
