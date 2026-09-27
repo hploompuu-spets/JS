@@ -1,0 +1,104 @@
+:root {
+    color-scheme: light;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    color: #202b35;
+    background: #f2f5f2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    padding: clamp(1.25rem, 5vw, 4rem) 1rem;
+    background: linear-gradient(135deg, #f2f5f2 0%, #e5efea 100%);
+}
+
+.page {
+    width: min(100%, 960px);
+    margin: 0 auto;
+}
+
+h1 {
+    margin: 0 0 1.5rem;
+    color: #174c43;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid #d3ded8;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgb(26 57 47 / 8%);
+}
+
+table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid rgb(32 43 53 / 8%);
+}
+
+th {
+    background: #174c43;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+tbody tr:hover {
+    filter: brightness(0.96);
+}
+
+.juuksur {
+    background: #e7f1e8;
+}
+
+.massaaz {
+    background: #f7eadb;
+}
+
+.spa {
+    background: #e3eff2;
+}
+
+.kosmeetika {
+    background: #f3e8ed;
+}
+
+.muu-teenus {
+    background: #ecefed;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1.5rem 0.75rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    th,
+    td {
+        padding: 0.75rem;
+    }
+}
