@@ -11,14 +11,24 @@
 	<main class="page">
 		<h1>Broneeringud</h1>
 		<div class="table-controls">
-			<label for="teenuse-filter">Filtreeri teenuse järgi</label>
-			<select id="teenuse-filter">
-				<option value="">Kõik teenused</option>
-				<option value="Juuksur">Juuksur</option>
-				<option value="Massaaž">Massaaž</option>
-				<option value="Spa">Spa</option>
-				<option value="Kosmeetika">Kosmeetika</option>
-			</select>
+			<div class="filter-field">
+				<label for="teenuse-filter">Teenus</label>
+				<select id="teenuse-filter">
+					<option value="">Kõik teenused</option>
+					<option value="Juuksur">Juuksur</option>
+					<option value="Massaaž">Massaaž</option>
+					<option value="Spa">Spa</option>
+					<option value="Kosmeetika">Kosmeetika</option>
+				</select>
+			</div>
+			<div class="filter-field">
+				<label for="kuupaeva-filter">Kuupäev</label>
+				<input id="kuupaeva-filter" type="date">
+			</div>
+			<div class="filter-field">
+				<label for="kliendi-filter">Klient</label>
+				<input id="kliendi-filter" type="search" placeholder="Otsi nime järgi" autocomplete="off">
+			</div>
 			<p id="tulemuste-arv" aria-live="polite"></p>
 		</div>
 		<div class="table-wrap">
